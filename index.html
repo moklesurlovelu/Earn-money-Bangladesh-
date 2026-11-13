@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Earn money Bangladesh</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #f0f4f8; display: flex; justify-content: center; min-height: 100vh; color: #1e293b; }
+        .app { width: 100%; max-width: 480px; background: #fff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.05); position: relative; }
+        
+        /* Header */
+        .header { background: linear-gradient(135deg, #0f52ba, #0c3d8f); color: #fff; padding: 20px; text-align: center; border-radius: 0 0 20px 20px; }
+        .header h2 { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
+        .balance-box { font-size: 38px; font-weight: 800; margin: 10px 0; }
+        .stats { display: flex; justify-content: space-around; font-size: 13px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; }
+        
+        /* Nav Tabs */
+        .tabs { display: flex; background: #fff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 10; }
+        .tabs button { flex: 1; padding: 15px; border: none; background: transparent; font-size: 15px; font-weight: 600; color: #64748b; cursor: pointer; transition: 0.3s; }
+        .tabs button.active { color: #0f52ba; border-bottom: 3px solid #0f52ba; }
+
+        /* Content Area */
+        .content-area { padding: 20px; }
+        .hidden { display: none !important; }
+        
+        /* Buttons & Inputs */
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; margin-bottom: 12px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-primary { background: #0f52ba; color: #fff; box-shadow: 0 4px 10px rgba(15,82,186,0.3); }
+        .btn-primary:disabled { background: #94a3b8; box-shadow: none; cursor: not-allowed; }
+        .btn-success { background: #22c55e; color: #fff; box-shadow: 0 4px 10px rgba(34,197,94,0.3); }
+        .btn-google { background: #fff; color: #333; border: 1px solid #cbd5e1; }
+        .btn-logout { background: #ef4444; color: #fff; margin-top: 20px; }
+        
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 5px; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; outline: none; }
+        
+        /* Cards */
+        .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+        .card h4 { font-size: 16px; margin-bottom: 10px; color: #0f52ba; }
+        .card p { font-size: 13px; color: #64748b; margin-bottom: 10px; }
+        
+        .referral-box { display: flex; gap: 10px; }
+        .referral-box input { flex: 1; background: #fff; font-weight: bold; text-align: center; border: 1px dashed #0f52ba; color: #0f52ba; }
+        .referral-box button { width: auto; padding: 0 15px; margin: 0; }
+
+        /* Login/Register */
+        .auth-tabs { display: flex; margin-bottom: 20px; background: #f1f5f9; border-radius: 8px; padding: 4px; }
+        .auth-tabs button { flex: 1; padding: 10px; border: none; border-radius: 6px; background: transparent; font-weight: 600; cursor: pointer; color: #64748b; }
+        .auth-tabs button.active { background: #fff; color: #0f52ba; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        .divider { display: flex; align-items: center; gap: 10px; margin: 20px 0; color: #94a3b8; font-size: 13px; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+        .error-msg { color: #dc2626; font-size: 13px; text-align: center; margin-top: 10px; }
+
+        /* Spin Wheel */
+        .wheel-container { position: relative; width: 260px; height: 260px; margin: 20px auto; }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #0f52ba; background: conic-gradient(#ef4444 0deg 60deg, #22c55e 60deg 120deg, #3b82f6 120deg 180deg, #eab308 180deg 240deg, #a855f7 240deg 300deg, #94a3b8 300deg 360deg); transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1); position: relative; }
+        .pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #dc2626; z-index: 10; }
+        .spin-btn-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; border-radius: 50%; background: #fff; border: 4px solid #0f52ba; font-weight: bold; font-size: 16px; color: #0f52ba; cursor: pointer; z-index: 11; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .spin-btn-center:disabled { background: #e2e8f0; border-color: #94a3b8; color: #94a3b8; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+<div class="app">
+    
+    <!-- ================= LOGIN / REGISTER SECTION ================= -->
+    <div id="authSection">
+        <div class="header">
+            <h2>Earn money Bangladesh</h2>
+            <p style="font-size:13px; opacity:0.9;">অ্যাড দেখুন, টাকা আয় করুন</p>
+        </div>
+        <div class="content-area">
+            <div class="auth-tabs">
+                <button id="tabLogin" class="active" onclick="switchAuthTab('login')">লগইন</button>
+                <button id="tabRegister" onclick="switchAuthTab('register')">রেজিস্টার</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>ইমেইল</label>
+                    <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>পাসওয়ার্ড</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary">লগইন করুন</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="hidden" onsubmit="handleRegister(event)">
+                <div class="input-group">
+                    <label>আপনার নাম</label>
+                    <input type="text" id="regName" placeholder="আপনার নাম" required>
+                </div>
+                <div class="input-group">
+                    <label>ইমেইল</label>
+                    <input type="email" id="regEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)</label>
+                    <input type="password" id="regPassword" placeholder="••••••••" required minlength="6">
+                </div>
+                <div class="input-group">
+                    <label>রেফারেল কোড (ঐচ্ছিক)</label>
+                    <input type="text" id="regReferral" placeholder="বন্ধুর রেফারেল কোড">
+                </div>
+                <button type="submit" class="btn btn-primary">রেজিস্টার করুন</button>
+            </form>
+
+            <div class="divider">অথবা</div>
+            <button class="btn btn-google" onclick="handleGoogleLogin()">
+                Google দিয়ে লগইন করুন
+            </button>
+            <p id="authError" class="error-msg"></p>
+        </div>
+    </div>
+
+    <!-- ================= DASHBOARD SECTION ================= -->
+    <div id="dashboardSection" class="hidden">
+        <div class="header">
+            <h2 id="userNameDisplay">স্বাগতম</h2>
+            <div class="balance-box">৳ <span id="balanceDisplay">0.00</span></div>
+            <div class="stats">
+                <span>অ্যাড দেখেছেন: <b id="adsDisplay">0</b></span>
+                <span>উইথড্র লিমিট: <b>৳৫০০</b></span>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="active" onclick="switchDashboardTab('earn', this)">আয় করুন</button>
+            <button onclick="switchDashboardTab('spin', this)">স্পিন</button>
+            <button onclick="switchDashboardTab('withdraw', this)">উইথড্র</button>
+        </div>
+
+        <div class="content-area">
+            <!-- EARN TAB -->
+            <div id="earnTab">
+                <button id="watchAdBtn" class="btn btn-primary" onclick="watchAd()">
+                    ▶ অ্যাড দেখুন এবং ৳১ আয় করুন
+                </button>
+
+                <div class="card">
+                    <h4>🎁 ডেইলি বোনাস</h4>
+                    <p>প্রতিদিন ১ বার চেক-ইন করে ৳২ বোনাস নিন।</p>
+                    <button id="dailyBonusBtn" class="btn btn-success" onclick="claimDailyBonus()">চেক-ইন করুন</button>
+                </div>
+
+                <div class="card">
+                    <h4>👥 রেফারেল প্রোগ্রাম</h4>
+                    <p>বন্ধুকে রেফার করুন।</p>
+                    <div class="referral-box">
+                        <input type="text" id="myReferralCode" readonly>
+                        <button class="btn btn-primary" onclick="copyReferral()">কপি</button>
+                    </div>
+                </div>
+                <button class="btn btn-logout" onclick="handleLogout()">লগআউট</button>
+            </div>
+
+            <!-- SPIN TAB -->
+            <div id="spinTab" class="hidden">
+                <div class="card" style="text-align:center;">
+                    <h4>🎡 স্পিন করে টাকা জিতুন</h4>
+                    <p>প্রতিদিন ১ বার স্পিন করার সুযোগ।</p>
+                    
+                    <div class="wheel-container">
+                        <div class="pointer"></div>
+                        <div class="wheel" id="wheel"></div>
+                        <button id="spinBtn" class="spin-btn-center" onclick="spinWheel()">SPIN</button>
+                    </div>
+                    
+                    <p id="spinResult" style="font-weight:bold; color:#0f52ba; margin-top:15px; font-size:16px;"></p>
+                </div>
+                <button class="btn btn-logout" onclick="handleLogout()">লগআউট</button>
+            </div>
+
+            <!-- WITHDRAW TAB -->
+            <div id="withdrawTab" class="hidden">
+                <div class="card">
+                    <h4>💰 টাকা উত্তোলন (Withdraw)</h4>
+                    <p>সর্বনিম্ন ৫০০ টাকা উত্তোলন করা যাবে। (বিকাশ / নগদ)</p>
+                    <div class="input-group">
+                        <label>বিকাশ/নগদ নাম্বার</label>
+                        <input type="number" id="withdrawNumber" placeholder="01XXXXXXXXX">
+                    </div>
+                    <div class="input-group">
+                        <label>পরিমাণ (৳)</label>
+                        <input type="number" id="withdrawAmount" placeholder="সর্বনিম্ন ৫০০">
+                    </div>
+                    <button class="btn btn-primary" onclick="requestWithdraw()">রিকোয়েস্ট পাঠান</button>
+                </div>
+                <button class="btn btn-logout" onclick="handleLogout()">লগআউট</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // ১. আপনার ফায়ারবেস কনফিগারেশন
+    const firebaseConfig = {
+        apiKey: "AIzaSyAIpjogg8rSBJitgKczzAIbPlEI0kdNupw",
+        authDomain: "ad-earnings-money.firebaseapp.com",
+        projectId: "ad-earnings-money",
+        storageBucket: "ad-earnings-money.firebasestorage.app",
+        messagingSenderId: "1098160014181",
+        appId: "1:1098160014181:web:3889b5352d66cb7df6978c"
+    };
+
+    // ২. আপনার মনিট্যাগ ডাইরেক্ট লিংক
+    const MONETAG_LINK = "https://uplcm.com/4/12255628";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+    let userData = {};
+
+    // ================= AUTHENTICATION =================
+    window.switchAuthTab = (tab) => {
+        document.getElementById('authError').innerText = '';
+        if (tab === 'login') {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('tabLogin').classList.add('active');
+            document.getElementById('tabRegister').classList.remove('active');
+        } else {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('tabLogin').classList.remove('active');
+            document.getElementById('tabRegister').classList.add('active');
+        }
+    };
+
+    window.handleRegister = async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('regName').value;
+        const email = document.getElementById('regEmail').value;
+        const pass = document.getElementById('regPassword').value;
+        const refCode = document.getElementById('regReferral').value.trim();
+        
+        try {
+            const res = await createUserWithEmailAndPassword(auth, email, pass);
+            await updateProfile(res.user, { displayName: name });
+            await createUserDocument(res.user, name, refCode);
+        } catch (err) { document.getElementById('authError').innerText = err.message; }
+    };
+
+    window.handleLogin = async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const pass = document.getElementById('loginPassword').value;
+        try {
+            await signInWithEmailAndPassword(auth, email, pass);
+        } catch (err) { document.getElementById('authError').innerText = "লগইন ব্যর্থ: " + err.message; }
+    };
+
+    window.handleGoogleLogin = async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            const res = await signInWithPopup(auth, provider);
+            await createUserDocument(res.user, res.user.displayName, "");
+        } catch (err) { document.getElementById('authError').innerText = err.message; }
+    };
+
+    window.handleLogout = () => signOut(auth);
+
+    // ================= FIRESTORE LOGIC =================
+    async function createUserDocument(user, name, refCode) {
+        const userRef = doc(db, "users", user.uid);
+        const snap = await getDoc(userRef);
+        if (!snap.exists()) {
+            await setDoc(userRef, {
+                name: name,
+                email: user.email,
+                balance: 0.00,
+                adsWatched: 0,
+                referralCode: user.uid.substring(0, 8).toUpperCase(),
+                referredBy: refCode || null,
+                lastCheckIn: null,
+                lastSpin: null,
+                createdAt: serverTimestamp()
+            });
+        }
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            currentUser = user;
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            document.getElementById('userNameDisplay').innerText = "স্বাগতম, " + (user.displayName || "User");
+            await loadUserData(user.uid);
+        } else {
+            document.getElementById('authSection').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.add('hidden');
+        }
+    });
+
+    async function loadUserData(uid) {
+        const snap = await getDoc(doc(db, "users", uid));
+        if (snap.exists()) {
+            userData = snap.data();
+            document.getElementById('balanceDisplay').innerText = userData.balance.toFixed(2);
+            document.getElementById('adsDisplay').innerText = userData.adsWatched;
+            document.getElementById('myReferralCode').value = userData.referralCode;
+            checkDailyBonus();
+            checkSpinAvailability();
+        }
+    }
+
+    // ================= EARN LOGIC =================
+    window.watchAd = () => {
+        if (!currentUser) return;
+        
+        // নতুন ট্যাবে Monetag লিংক ওপেন হবে
+        window.open(MONETAG_LINK, '_blank');
+        
+        const btn = document.getElementById('watchAdBtn');
+        btn.disabled = true;
+        let timeLeft = 15;
+        
+        let timer = setInterval(async () => {
+            timeLeft--;
+            btn.innerText = `অপেক্ষা করুন (${timeLeft} সেকেন্ড)`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                await updateDoc(doc(db, "users", currentUser.uid), {
+                    balance: increment(1.00),
+                    adsWatched: increment(1)
+                });
+                await loadUserData(currentUser.uid);
+                btn.disabled = false;
+                btn.innerText = "▶ অ্যাড দেখুন এবং ৳১ আয় করুন";
+                alert("সফলভাবে ৳১ যোগ হয়েছে!");
+            }
+        }, 1000);
+    };
+
+    // ================= DAILY BONUS =================
+    function checkDailyBonus() {
+        const btn = document.getElementById('dailyBonusBtn');
+        const today = new Date().toDateString();
+        
+        if (userData.lastCheckIn === today) {
+            btn.disabled = true;
+            btn.innerText = "আজ চেক-ইন সম্পন্ন";
+        } else {
+            btn.disabled = false;
+            btn.innerText = "চেক-ইন করুন (৳২)";
+        }
+    }
+
+    window.claimDailyBonus = async () => {
+        const today = new Date().toDateString();
+        if (userData.lastCheckIn === today) return;
+
+        await updateDoc(doc(db, "users", currentUser.uid), {
+            balance: increment(2.00),
+            lastCheckIn: today
+        });
+        await loadUserData(currentUser.uid);
+        alert("অভিনন্দন! ৳২ ডেইলি বোনাস পেয়েছেন।");
+    };
+
+    // ================= SPIN WHEEL LOGIC =================
+    let isSpinning = false;
+
+    function checkSpinAvailability() {
+        const btn = document.getElementById('spinBtn');
+        const today = new Date().toDateString();
+        
+        if (userData.lastSpin === today) {
+            btn.disabled = true;
+            btn.innerText = "কাল\nআসুন";
+            document.getElementById('spinResult').innerText = "আজকের স্পিন শেষ! আগামীকাল আবার আসুন।";
+        } else {
+            btn.disabled = false;
+            btn.innerText = "SPIN";
+            document.getElementById('spinResult').innerText = "";
+        }
+    }
+
+    window.spinWheel = async () => {
+        if (isSpinning || !currentUser) return;
+        const today = new Date().toDateString();
+        
+        if (userData.lastSpin === today) {
+            alert("আপনি আজ ইতিমধ্যে স্পিন করেছেন!");
+            return;
+        }
+
+        isSpinning = true;
+        const btn = document.getElementById('spinBtn');
+        btn.disabled = true;
+
+        const prizes = [0.10, 0.50, 1.00, 2.00, 5.00, 0.00]; 
+        const randomIndex = Math.floor(Math.random() * prizes.length);
+        const winAmount = prizes[randomIndex];
+        const rotation = (360 * 5) + (360 - (randomIndex * 60) - 30);
+        
+        const wheel = document.getElementById('wheel');
+        wheel.style.transform = `rotate(${rotation}deg)`;
+
+        setTimeout(async () => {
+            isSpinning = false;
+            document.getElementById('spinResult').innerText = winAmount > 0 ? `অভিনন্দন! আপনি ৳${winAmount.toFixed(2)} জিতেছেন!` : "দুঃখিত, এবার কোনো
