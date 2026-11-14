@@ -4,73 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Earn money Bangladesh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: #f0f4f8; display: flex; justify-content: center; min-height: 100vh; color: #1e293b; }
-        .app { width: 100%; max-width: 480px; background: #fff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.05); position: relative; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: #eef2f6; display: flex; justify-content: center; min-height: 100vh; color: #1e293b; }
+        .app { width: 100%; max-width: 480px; background: #fff; min-height: 100vh; box-shadow: 0 0 30px rgba(0,0,0,0.1); position: relative; padding-bottom: 70px; }
         
         /* Header */
-        .header { background: linear-gradient(135deg, #0f52ba, #0c3d8f); color: #fff; padding: 20px; text-align: center; border-radius: 0 0 20px 20px; }
-        .header h2 { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
-        .balance-box { font-size: 38px; font-weight: 800; margin: 10px 0; }
-        .stats { display: flex; justify-content: space-around; font-size: 13px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; }
+        .header { background: linear-gradient(135deg, #0b4db5, #072e6e); color: #fff; padding: 25px 20px 30px; text-align: center; border-radius: 0 0 30px 30px; box-shadow: 0 4px 15px rgba(11, 77, 181, 0.3); }
+        .header h2 { font-size: 18px; font-weight: 500; margin-bottom: 5px; opacity: 0.9; }
+        .balance-box { font-size: 42px; font-weight: 700; margin: 10px 0; letter-spacing: 1px; }
+        .stats { display: flex; justify-content: space-between; font-size: 13px; background: rgba(255,255,255,0.15); padding: 12px 20px; border-radius: 12px; backdrop-filter: blur(5px); }
         
-        /* Nav Tabs */
-        .tabs { display: flex; background: #fff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 10; }
-        .tabs button { flex: 1; padding: 15px; border: none; background: transparent; font-size: 15px; font-weight: 600; color: #64748b; cursor: pointer; transition: 0.3s; }
-        .tabs button.active { color: #0f52ba; border-bottom: 3px solid #0f52ba; }
-
         /* Content Area */
         .content-area { padding: 20px; }
-        .hidden { display: none !important; }
+        .hidden { display: none !important; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         /* Buttons & Inputs */
-        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; margin-bottom: 12px; display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .btn-primary { background: #0f52ba; color: #fff; box-shadow: 0 4px 10px rgba(15,82,186,0.3); }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; margin-bottom: 12px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-primary { background: #0b4db5; color: #fff; box-shadow: 0 4px 12px rgba(11,77,181,0.3); }
+        .btn-primary:active { transform: scale(0.98); }
         .btn-primary:disabled { background: #94a3b8; box-shadow: none; cursor: not-allowed; }
-        .btn-success { background: #22c55e; color: #fff; box-shadow: 0 4px 10px rgba(34,197,94,0.3); }
+        .btn-success { background: #10b981; color: #fff; box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
         .btn-google { background: #fff; color: #333; border: 1px solid #cbd5e1; }
-        .btn-logout { background: #ef4444; color: #fff; margin-top: 20px; }
+        .btn-logout { background: #ef4444; color: #fff; }
         
         .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; outline: none; }
+        .input-group label { display: block; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 6px; }
+        .input-group input { width: 100%; padding: 14px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; transition: 0.2s; background: #f8fafc; }
+        .input-group input:focus { border-color: #0b4db5; background: #fff; box-shadow: 0 0 0 3px rgba(11,77,181,0.1); }
+        
+        /* Circular Ads Grid */
+        .ad-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; justify-items: center; }
+        .ad-circle { width: 130px; height: 130px; border-radius: 50%; background: linear-gradient(135deg, #ffffff, #f1f5f9); border: 4px solid #0b4db5; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 6px 15px rgba(0,0,0,0.08); transition: 0.3s; position: relative; overflow: hidden; }
+        .ad-circle::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: rgba(11,77,181,0.05); border-radius: 50%; transform: scale(0); transition: 0.3s; }
+        .ad-circle:active::before { transform: scale(1); }
+        .ad-circle:active { transform: scale(0.95); border-color: #10b981; }
+        .ad-circle span.icon { font-size: 32px; margin-bottom: 5px; color: #0b4db5; }
+        .ad-circle span.text { font-weight: 700; color: #0b4db5; font-size: 15px; }
+        .ad-circle.disabled { border-color: #94a3b8; pointer-events: none; opacity: 0.7; }
+        .ad-circle.disabled span { color: #94a3b8; }
         
         /* Cards */
-        .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
-        .card h4 { font-size: 16px; margin-bottom: 10px; color: #0f52ba; }
-        .card p { font-size: 13px; color: #64748b; margin-bottom: 10px; }
+        .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .card h4 { font-size: 16px; margin-bottom: 10px; color: #0b4db5; display: flex; align-items: center; gap: 8px; }
+        .card p { font-size: 14px; color: #64748b; margin-bottom: 15px; }
         
-        .referral-box { display: flex; gap: 10px; }
-        .referral-box input { flex: 1; background: #fff; font-weight: bold; text-align: center; border: 1px dashed #0f52ba; color: #0f52ba; }
-        .referral-box button { width: auto; padding: 0 15px; margin: 0; }
-
-        /* Login/Register */
-        .auth-tabs { display: flex; margin-bottom: 20px; background: #f1f5f9; border-radius: 8px; padding: 4px; }
-        .auth-tabs button { flex: 1; padding: 10px; border: none; border-radius: 6px; background: transparent; font-weight: 600; cursor: pointer; color: #64748b; }
-        .auth-tabs button.active { background: #fff; color: #0f52ba; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        
-        .divider { display: flex; align-items: center; gap: 10px; margin: 20px 0; color: #94a3b8; font-size: 13px; }
-        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
-        .error-msg { color: #dc2626; font-size: 13px; text-align: center; margin-top: 10px; }
+        /* Profile & Share */
+        .profile-header { text-align: center; margin-bottom: 20px; }
+        .avatar { width: 80px; height: 80px; background: #e0e7ff; color: #0b4db5; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32px; font-weight: bold; margin: 0 auto 10px; border: 3px solid #0b4db5; }
+        .referral-box { display: flex; gap: 10px; background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px dashed #0b4db5; align-items: center; margin-bottom: 15px; }
+        .referral-box input { flex: 1; background: transparent; border: none; font-weight: 700; font-size: 16px; color: #0b4db5; text-align: center; outline: none; letter-spacing: 1px; }
+        .referral-box button { width: auto; padding: 8px 15px; margin: 0; border-radius: 8px; font-size: 14px; }
+        .share-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 10px; }
+        .share-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 600; color: #fff; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 5px; font-size: 14px; }
+        .share-fb { background: #1877F2; }
+        .share-wa { background: #25D366; }
+        .share-tg { background: #0088cc; }
 
         /* Spin Wheel */
-        .wheel-container { position: relative; width: 260px; height: 260px; margin: 20px auto; }
-        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #0f52ba; background: conic-gradient(#ef4444 0deg 60deg, #22c55e 60deg 120deg, #3b82f6 120deg 180deg, #eab308 180deg 240deg, #a855f7 240deg 300deg, #94a3b8 300deg 360deg); transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1); position: relative; }
-        .pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #dc2626; z-index: 10; }
-        .spin-btn-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; border-radius: 50%; background: #fff; border: 4px solid #0f52ba; font-weight: bold; font-size: 16px; color: #0f52ba; cursor: pointer; z-index: 11; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .wheel-container { position: relative; width: 280px; height: 280px; margin: 20px auto; }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #0b4db5; background: conic-gradient(#ef4444 0deg 60deg, #22c55e 60deg 120deg, #3b82f6 120deg 180deg, #eab308 180deg 240deg, #a855f7 240deg 300deg, #94a3b8 300deg 360deg); transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1); position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .wheel-text { position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; text-align: center; line-height: 40px; font-weight: 800; color: #fff; font-size: 18px; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); pointer-events: none; }
+        .pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 18px solid transparent; border-right: 18px solid transparent; border-top: 35px solid #ef4444; z-index: 10; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3)); }
+        .spin-btn-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; border-radius: 50%; background: #fff; border: 5px solid #0b4db5; font-weight: 800; font-size: 20px; color: #0b4db5; cursor: pointer; z-index: 11; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.2s; }
+        .spin-btn-center:active { transform: translate(-50%, -50%) scale(0.9); }
         .spin-btn-center:disabled { background: #e2e8f0; border-color: #94a3b8; color: #94a3b8; cursor: not-allowed; }
+
+        /* Bottom Navigation */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #e2e8f0; box-shadow: 0 -2px 15px rgba(0,0,0,0.05); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #64748b; cursor: pointer; font-size: 12px; font-weight: 600; transition: 0.2s; border: none; background: transparent; padding: 5px 15px; border-radius: 10px; }
+        .nav-item.active { color: #0b4db5; background: #e0e7ff; }
+        .nav-item span.icon { font-size: 20px; margin-bottom: 2px; }
+
+        /* Loader */
+        .loader-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #e2e8f0; border-top-color: #0b4db5; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .auth-tabs { display: flex; margin-bottom: 20px; background: #f1f5f9; border-radius: 10px; padding: 5px; }
+        .auth-tabs button { flex: 1; padding: 12px; border: none; border-radius: 8px; background: transparent; font-weight: 700; cursor: pointer; color: #64748b; transition: 0.2s; }
+        .auth-tabs button.active { background: #fff; color: #0b4db5; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .divider { display: flex; align-items: center; gap: 10px; margin: 20px 0; color: #94a3b8; font-size: 13px; font-weight: 500; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+        .error-msg { color: #dc2626; font-size: 13px; text-align: center; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="app">
+<div class="app" id="appContainer">
     
+    <!-- ================= LOADER ================= -->
+    <div id="loader" class="loader-overlay">
+        <div class="spinner"></div>
+        <p style="color:#0b4db5; font-weight:600;">লোড হচ্ছে...</p>
+    </div>
+
     <!-- ================= LOGIN / REGISTER SECTION ================= -->
-    <div id="authSection">
+    <div id="authSection" class="hidden">
         <div class="header">
             <h2>Earn money Bangladesh</h2>
-            <p style="font-size:13px; opacity:0.9;">অ্যাড দেখুন, টাকা আয় করুন</p>
+            <p style="font-size:14px; opacity:0.9;">অ্যাড দেখুন, টাকা আয় করুন</p>
         </div>
         <div class="content-area">
             <div class="auth-tabs">
@@ -122,6 +157,7 @@
 
     <!-- ================= DASHBOARD SECTION ================= -->
     <div id="dashboardSection" class="hidden">
+        <!-- Header -->
         <div class="header">
             <h2 id="userNameDisplay">স্বাগতম</h2>
             <div class="balance-box">৳ <span id="balanceDisplay">0.00</span></div>
@@ -131,51 +167,88 @@
             </div>
         </div>
 
-        <div class="tabs">
-            <button class="active" onclick="switchDashboardTab('earn', this)">আয় করুন</button>
-            <button onclick="switchDashboardTab('spin', this)">স্পিন</button>
-            <button onclick="switchDashboardTab('withdraw', this)">উইথড্র</button>
-        </div>
-
         <div class="content-area">
             <!-- EARN TAB -->
             <div id="earnTab">
-                <button id="watchAdBtn" class="btn btn-primary" onclick="watchAd()">
-                    ▶ অ্যাড দেখুন এবং ৳১ আয় করুন
-                </button>
+                <div class="card" style="text-align:center; background:linear-gradient(to right, #f8fafc, #f1f5f9);">
+                    <h4 style="justify-content:center; font-size:18px;">🎬 ভিডিও দেখুন এবং আয় করুন</h4>
+                    <p>নিচের যেকোনো একটি বাটনে ক্লিক করে অ্যাড দেখুন।</p>
+                    
+                    <div class="ad-grid">
+                        <div class="ad-circle" onclick="watchAd(this)">
+                            <span class="icon">▶</span>
+                            <span class="text">Ad 1</span>
+                        </div>
+                        <div class="ad-circle" onclick="watchAd(this)">
+                            <span class="icon">▶</span>
+                            <span class="text">Ad 2</span>
+                        </div>
+                        <div class="ad-circle" onclick="watchAd(this)">
+                            <span class="icon">▶</span>
+                            <span class="text">Ad 3</span>
+                        </div>
+                        <div class="ad-circle" onclick="watchAd(this)">
+                            <span class="icon">▶</span>
+                            <span class="text">Ad 4</span>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="card">
                     <h4>🎁 ডেইলি বোনাস</h4>
                     <p>প্রতিদিন ১ বার চেক-ইন করে ৳২ বোনাস নিন।</p>
                     <button id="dailyBonusBtn" class="btn btn-success" onclick="claimDailyBonus()">চেক-ইন করুন</button>
                 </div>
-
-                <div class="card">
-                    <h4>👥 রেফারেল প্রোগ্রাম</h4>
-                    <p>বন্ধুকে রেফার করুন।</p>
-                    <div class="referral-box">
-                        <input type="text" id="myReferralCode" readonly>
-                        <button class="btn btn-primary" onclick="copyReferral()">কপি</button>
-                    </div>
-                </div>
-                <button class="btn btn-logout" onclick="handleLogout()">লগআউট</button>
             </div>
 
             <!-- SPIN TAB -->
             <div id="spinTab" class="hidden">
                 <div class="card" style="text-align:center;">
-                    <h4>🎡 স্পিন করে টাকা জিতুন</h4>
+                    <h4 style="justify-content:center;">🎡 স্পিন করে টাকা জিতুন</h4>
                     <p>প্রতিদিন ১ বার স্পিন করার সুযোগ।</p>
                     
                     <div class="wheel-container">
                         <div class="pointer"></div>
-                        <div class="wheel" id="wheel"></div>
+                        <div class="wheel" id="wheel">
+                            <div class="wheel-text" style="transform: rotate(30deg) translateY(-100px)">৳1</div>
+                            <div class="wheel-text" style="transform: rotate(90deg) translateY(-100px)">৳2</div>
+                            <div class="wheel-text" style="transform: rotate(150deg) translateY(-100px)">৳5</div>
+                            <div class="wheel-text" style="transform: rotate(210deg) translateY(-100px)">৳7</div>
+                            <div class="wheel-text" style="transform: rotate(270deg) translateY(-100px)">৳9</div>
+                            <div class="wheel-text" style="transform: rotate(330deg) translateY(-100px)">৳10</div>
+                        </div>
                         <button id="spinBtn" class="spin-btn-center" onclick="spinWheel()">SPIN</button>
                     </div>
                     
-                    <p id="spinResult" style="font-weight:bold; color:#0f52ba; margin-top:15px; font-size:16px;"></p>
+                    <p id="spinResult" style="font-weight:700; color:#0b4db5; margin-top:20px; font-size:16px; min-height:24px;"></p>
                 </div>
-                <button class="btn btn-logout" onclick="handleLogout()">লগআউট</button>
+            </div>
+
+            <!-- PROFILE TAB -->
+            <div id="profileTab" class="hidden">
+                <div class="card">
+                    <div class="profile-header">
+                        <div class="avatar" id="profileAvatar">U</div>
+                        <h3 id="profileName" style="font-size:18px; color:#1e293b;">User Name</h3>
+                        <p id="profileEmail" style="font-size:14px; color:#64748b;">email@example.com</p>
+                    </div>
+
+                    <h4 style="margin-top:20px;">👥 রেফারেল প্রোগ্রাম</h4>
+                    <p>বন্ধুদের সাথে শেয়ার করে আয় করুন।</p>
+                    <div class="referral-box">
+                        <input type="text" id="myReferralCode" readonly>
+                        <button class="btn btn-primary" onclick="copyReferral()">কপি</button>
+                    </div>
+                    
+                    <p style="text-align:center; font-size:13px; font-weight:600; color:#475569; margin-top:15px;">সোশ্যাল মিডিয়ায় শেয়ার করুন:</p>
+                    <div class="share-buttons">
+                        <button class="share-btn share-fb" onclick="shareSocial('facebook')">Facebook</button>
+                        <button class="share-btn share-wa" onclick="shareSocial('whatsapp')">WhatsApp</button>
+                        <button class="share-btn share-tg" onclick="shareSocial('telegram')">Telegram</button>
+                    </div>
+                </div>
+                
+                <button class="btn btn-logout" onclick="handleLogout()" style="margin-top:20px;">লগআউট</button>
             </div>
 
             <!-- WITHDRAW TAB -->
@@ -193,8 +266,23 @@
                     </div>
                     <button class="btn btn-primary" onclick="requestWithdraw()">রিকোয়েস্ট পাঠান</button>
                 </div>
-                <button class="btn btn-logout" onclick="handleLogout()">লগআউট</button>
             </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="switchDashboardTab('earn', this)">
+                <span class="icon">💰</span> আয় করুন
+            </button>
+            <button class="nav-item" onclick="switchDashboardTab('spin', this)">
+                <span class="icon">🎡</span> স্পিন
+            </button>
+            <button class="nav-item" onclick="switchDashboardTab('profile', this)">
+                <span class="icon">👤</span> প্রোফাইল
+            </button>
+            <button class="nav-item" onclick="switchDashboardTab('withdraw', this)">
+                <span class="icon">💸</span> উইথড্র
+            </button>
         </div>
     </div>
 </div>
@@ -205,7 +293,7 @@
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // ১. আপনার ফায়ারবেস কনফিগারেশন
+    // আপনার Firebase Config
     const firebaseConfig = {
         apiKey: "AIzaSyAIpjogg8rSBJitgKczzAIbPlEI0kdNupw",
         authDomain: "ad-earnings-money.firebaseapp.com",
@@ -215,7 +303,7 @@
         appId: "1:1098160014181:web:3889b5352d66cb7df6978c"
     };
 
-    // ২. আপনার মনিট্যাগ ডাইরেক্ট লিংক
+    // আপনার Monetag Direct Link
     const MONETAG_LINK = "https://uplcm.com/4/12255628";
 
     const app = initializeApp(firebaseConfig);
@@ -224,8 +312,9 @@
 
     let currentUser = null;
     let userData = {};
+    let isSpinning = false;
 
-    // ================= AUTHENTICATION =================
+    // ================= AUTHENTICATION & LOADING =================
     window.switchAuthTab = (tab) => {
         document.getElementById('authError').innerText = '';
         if (tab === 'login') {
@@ -248,31 +337,47 @@
         const pass = document.getElementById('regPassword').value;
         const refCode = document.getElementById('regReferral').value.trim();
         
+        document.getElementById('loader').classList.remove('hidden');
         try {
             const res = await createUserWithEmailAndPassword(auth, email, pass);
             await updateProfile(res.user, { displayName: name });
             await createUserDocument(res.user, name, refCode);
-        } catch (err) { document.getElementById('authError').innerText = err.message; }
+        } catch (err) { 
+            document.getElementById('authError').innerText = err.message; 
+            document.getElementById('loader').classList.add('hidden');
+        }
     };
 
     window.handleLogin = async (e) => {
         e.preventDefault();
         const email = document.getElementById('loginEmail').value;
         const pass = document.getElementById('loginPassword').value;
+        
+        document.getElementById('loader').classList.remove('hidden');
         try {
             await signInWithEmailAndPassword(auth, email, pass);
-        } catch (err) { document.getElementById('authError').innerText = "লগইন ব্যর্থ: " + err.message; }
+        } catch (err) { 
+            document.getElementById('authError').innerText = "লগইন ব্যর্থ: " + err.message; 
+            document.getElementById('loader').classList.add('hidden');
+        }
     };
 
     window.handleGoogleLogin = async () => {
         const provider = new GoogleAuthProvider();
+        document.getElementById('loader').classList.remove('hidden');
         try {
             const res = await signInWithPopup(auth, provider);
             await createUserDocument(res.user, res.user.displayName, "");
-        } catch (err) { document.getElementById('authError').innerText = err.message; }
+        } catch (err) { 
+            document.getElementById('authError').innerText = err.message; 
+            document.getElementById('loader').classList.add('hidden');
+        }
     };
 
-    window.handleLogout = () => signOut(auth);
+    window.handleLogout = () => {
+        document.getElementById('loader').classList.remove('hidden');
+        signOut(auth);
+    };
 
     // ================= FIRESTORE LOGIC =================
     async function createUserDocument(user, name, refCode) {
@@ -298,11 +403,19 @@
             currentUser = user;
             document.getElementById('authSection').classList.add('hidden');
             document.getElementById('dashboardSection').classList.remove('hidden');
+            
             document.getElementById('userNameDisplay').innerText = "স্বাগতম, " + (user.displayName || "User");
+            document.getElementById('profileName').innerText = user.displayName || "User";
+            document.getElementById('profileEmail').innerText = user.email;
+            document.getElementById('profileAvatar').innerText = (user.displayName || "U").charAt(0).toUpperCase();
+
             await loadUserData(user.uid);
+            document.getElementById('loader').classList.add('hidden');
         } else {
+            currentUser = null;
             document.getElementById('authSection').classList.remove('hidden');
             document.getElementById('dashboardSection').classList.add('hidden');
+            document.getElementById('loader').classList.add('hidden');
         }
     });
 
@@ -319,19 +432,22 @@
     }
 
     // ================= EARN LOGIC =================
-    window.watchAd = () => {
+    window.watchAd = (element) => {
         if (!currentUser) return;
         
-        // নতুন ট্যাবে Monetag লিংক ওপেন হবে
+        // Monetag লিংক ওপেন করা
         window.open(MONETAG_LINK, '_blank');
         
-        const btn = document.getElementById('watchAdBtn');
-        btn.disabled = true;
+        // পেজকে অটোমেটিক্যালি উপরে স্ক্রল করা (হোম পেজ ফিল)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        element.classList.add('disabled');
+        const originalText = element.querySelector('.text').innerText;
         let timeLeft = 15;
         
         let timer = setInterval(async () => {
             timeLeft--;
-            btn.innerText = `অপেক্ষা করুন (${timeLeft} সেকেন্ড)`;
+            element.querySelector('.text').innerText = `${timeLeft}s`;
             
             if (timeLeft <= 0) {
                 clearInterval(timer);
@@ -340,8 +456,14 @@
                     adsWatched: increment(1)
                 });
                 await loadUserData(currentUser.uid);
-                btn.disabled = false;
-                btn.innerText = "▶ অ্যাড দেখুন এবং ৳১ আয় করুন";
+                element.classList.remove('disabled');
+                element.querySelector('.text').innerText = originalText;
+                
+                // সাকসেস অ্যানিমেশন এবং অ্যালার্ট
+                const balanceBox = document.querySelector('.balance-box');
+                balanceBox.style.transform = 'scale(1.1)';
+                balanceBox.style.transition = '0.3s';
+                setTimeout(() => balanceBox.style.transform = 'scale(1)', 300);
                 alert("সফলভাবে ৳১ যোগ হয়েছে!");
             }
         }, 1000);
@@ -374,8 +496,6 @@
     };
 
     // ================= SPIN WHEEL LOGIC =================
- let isSpinning = false;
-
     function checkSpinAvailability() {
         const btn = document.getElementById('spinBtn');
         const today = new Date().toDateString();
@@ -404,7 +524,8 @@
         const btn = document.getElementById('spinBtn');
         btn.disabled = true;
 
-        const prizes = [0.10, 0.50, 1.00, 2.00, 5.00, 0.00]; 
+        // ১, ২, ৫, ৭, ৯, ১০ (এই ক্রমানুসারে)
+        const prizes = [1, 2, 5, 7, 9, 10]; 
         const randomIndex = Math.floor(Math.random() * prizes.length);
         const winAmount = prizes[randomIndex];
         const rotation = (360 * 5) + (360 - (randomIndex * 60) - 30);
@@ -414,7 +535,7 @@
 
         setTimeout(async () => {
             isSpinning = false;
-            document.getElementById('spinResult').innerText = winAmount > 0 ? `অভিনন্দন! আপনি ৳${winAmount.toFixed(2)} জিতেছেন!` : "দুঃখিত, এবার কোনো পুরস্কার নেই!";
+            document.getElementById('spinResult').innerText = `অভিনন্দন! আপনি ৳${winAmount} জিতেছেন!`;
             
             await updateDoc(doc(db, "users", currentUser.uid), {
                 balance: increment(winAmount),
@@ -441,20 +562,22 @@
 
         alert("আপনার উইথড্র রিকোয়েস্ট গ্রহণ করা হয়েছে। ২৪-৪৮ ঘন্টার মধ্যে পেমেন্ট পাঠানো হবে।");
         await loadUserData(currentUser.uid);
-        switchDashboardTab('earn', document.querySelector('.tabs button'));
+        switchDashboardTab('earn', document.querySelectorAll('.nav-item')[0]);
     };
 
-    // ================= UI TAB SWITCH =================
+    // ================= UI & SHARE =================
     window.switchDashboardTab = (tab, btn) => {
-        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         
         document.getElementById('earnTab').classList.add('hidden');
         document.getElementById('spinTab').classList.add('hidden');
+        document.getElementById('profileTab').classList.add('hidden');
         document.getElementById('withdrawTab').classList.add('hidden');
 
         if (tab === 'earn') document.getElementById('earnTab').classList.remove('hidden');
         if (tab === 'spin') document.getElementById('spinTab').classList.remove('hidden');
+        if (tab === 'profile') document.getElementById('profileTab').classList.remove('hidden');
         if (tab === 'withdraw') document.getElementById('withdrawTab').classList.remove('hidden');
     };
 
@@ -463,6 +586,23 @@
         copyText.select();
         document.execCommand("copy");
         alert("রেফারেল কোড কপি হয়েছে: " + copyText.value);
+    };
+
+    window.shareSocial = (platform) => {
+        const refCode = document.getElementById('myReferralCode').value;
+        const appUrl = window.location.href;
+        const text = `আমার রেফারেল কোড (${refCode}) ব্যবহার করে Earn money Bangladesh অ্যাপে জয়েন করুন এবং অ্যাড দেখে প্রতিদিন টাকা আয় করুন! লিংক: ${appUrl}`;
+        
+        let url = '';
+        if (platform === 'facebook') {
+            url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(appUrl)}`;
+        } else if (platform === 'whatsapp') {
+            url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+        } else if (platform === 'telegram') {
+            url = `https://t.me/share/url?url=${encodeURIComponent(appUrl)}&text=${encodeURIComponent(text)}`;
+        }
+        
+        window.open(url, '_blank');
     };
 </script>
 </body>
