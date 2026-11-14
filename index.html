@@ -374,7 +374,7 @@
     };
 
     // ================= SPIN WHEEL LOGIC =================
-    let isSpinning = false;
+ let isSpinning = false;
 
     function checkSpinAvailability() {
         const btn = document.getElementById('spinBtn');
@@ -414,4 +414,56 @@
 
         setTimeout(async () => {
             isSpinning = false;
-            document.getElementById('spinResult').innerText = winAmount > 0 ? `অভিনন্দন! আপনি ৳${winAmount.toFixed(2)} জিতেছেন!` : "দুঃখিত, এবার কোনো
+            document.getElementById('spinResult').innerText = winAmount > 0 ? `অভিনন্দন! আপনি ৳${winAmount.toFixed(2)} জিতেছেন!` : "দুঃখিত, এবার কোনো পুরস্কার নেই!";
+            
+            await updateDoc(doc(db, "users", currentUser.uid), {
+                balance: increment(winAmount),
+                lastSpin: today
+            });
+            
+            await loadUserData(currentUser.uid);
+        }, 4200);
+    };
+
+    // ================= WITHDRAW =================
+    window.requestWithdraw = async () => {
+        const number = document.getElementById('withdrawNumber').value;
+        const amount = parseFloat(document.getElementById('withdrawAmount').value);
+        const currentBalance = userData.balance;
+
+        if (!number || number.length < 11) { alert("সঠিক বিকাশ/নগদ নাম্বার দিন।"); return; }
+        if (amount < 500) { alert("সর্বনিম্ন ৫০০ টাকা উইথড্র করা যাবে।"); return; }
+        if (amount > currentBalance) { alert("আপনার পর্যাপ্ত ব্যালেন্স নেই।"); return; }
+
+        await updateDoc(doc(db, "users", currentUser.uid), {
+            balance: increment(-amount)
+        });
+
+        alert("আপনার উইথড্র রিকোয়েস্ট গ্রহণ করা হয়েছে। ২৪-৪৮ ঘন্টার মধ্যে পেমেন্ট পাঠানো হবে।");
+        await loadUserData(currentUser.uid);
+        switchDashboardTab('earn', document.querySelector('.tabs button'));
+    };
+
+    // ================= UI TAB SWITCH =================
+    window.switchDashboardTab = (tab, btn) => {
+        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        document.getElementById('earnTab').classList.add('hidden');
+        document.getElementById('spinTab').classList.add('hidden');
+        document.getElementById('withdrawTab').classList.add('hidden');
+
+        if (tab === 'earn') document.getElementById('earnTab').classList.remove('hidden');
+        if (tab === 'spin') document.getElementById('spinTab').classList.remove('hidden');
+        if (tab === 'withdraw') document.getElementById('withdrawTab').classList.remove('hidden');
+    };
+
+    window.copyReferral = () => {
+        const copyText = document.getElementById("myReferralCode");
+        copyText.select();
+        document.execCommand("copy");
+        alert("রেফারেল কোড কপি হয়েছে: " + copyText.value);
+    };
+</script>
+</body>
+</html>
