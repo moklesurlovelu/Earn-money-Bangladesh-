@@ -63,14 +63,26 @@
         .share-wa { background: #25D366; }
         .share-tg { background: #0088cc; }
 
-        /* Spin Wheel */
-        .wheel-container { position: relative; width: 280px; height: 280px; margin: 20px auto; }
-        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #0b4db5; background: conic-gradient(#ef4444 0deg 60deg, #22c55e 60deg 120deg, #3b82f6 120deg 180deg, #eab308 180deg 240deg, #a855f7 240deg 300deg, #94a3b8 300deg 360deg); transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1); position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .wheel-text { position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; text-align: center; line-height: 40px; font-weight: 800; color: #fff; font-size: 18px; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); pointer-events: none; }
-        .pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 18px solid transparent; border-right: 18px solid transparent; border-top: 35px solid #ef4444; z-index: 10; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3)); }
-        .spin-btn-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; border-radius: 50%; background: #fff; border: 5px solid #0b4db5; font-weight: 800; font-size: 20px; color: #0b4db5; cursor: pointer; z-index: 11; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.2s; }
+        /* Spin Wheels */
+        .wheel-container { position: relative; width: 240px; height: 240px; margin: 10px auto; }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #0b4db5; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.15); overflow: hidden; transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1); }
+        
+        /* Wheel 1 Colors (1, 2, 5, 9) */
+        .wheel-premium { background: conic-gradient(#ef4444 0deg 90deg, #22c55e 90deg 180deg, #3b82f6 180deg 270deg, #eab308 270deg 360deg); }
+        .premium-text-1 { transform: rotate(45deg) translateY(-80px); }
+        .premium-text-2 { transform: rotate(135deg) translateY(-80px); }
+        .premium-text-5 { transform: rotate(225deg) translateY(-80px); }
+        .premium-text-9 { transform: rotate(315deg) translateY(-80px); }
+
+        /* Wheel 2 Colors (0.5, 0.6, 0.7, 0.8, 0.9, 1.0) */
+        .wheel-unlimited { background: conic-gradient(#ef4444 0deg 60deg, #22c55e 60deg 120deg, #3b82f6 120deg 180deg, #eab308 180deg 240deg, #a855f7 240deg 300deg, #94a3b8 300deg 360deg); }
+        
+        .wheel-text { position: absolute; top: 50%; left: 50%; width: 60px; height: 40px; margin: -20px 0 0 -30px; text-align: center; line-height: 40px; font-weight: 800; color: #fff; font-size: 18px; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); pointer-events: none; }
+        
+        .pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #dc2626; z-index: 10; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3)); }
+        .spin-btn-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; border-radius: 50%; background: #fff; border: 4px solid #0b4db5; font-weight: 800; font-size: 16px; color: #0b4db5; cursor: pointer; z-index: 11; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.2s; display: flex; flex-direction: column; justify-content: center; align-items: center; line-height: 1.2; }
         .spin-btn-center:active { transform: translate(-50%, -50%) scale(0.9); }
-        .spin-btn-center:disabled { background: #e2e8f0; border-color: #94a3b8; color: #94a3b8; cursor: not-allowed; }
+        .spin-btn-center:disabled { background: #e2e8f0; border-color: #94a3b8; color: #94a3b8; cursor: not-allowed; font-size: 13px;}
 
         /* Bottom Navigation */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #e2e8f0; box-shadow: 0 -2px 15px rgba(0,0,0,0.05); z-index: 100; }
@@ -141,7 +153,7 @@
                     <input type="password" id="regPassword" placeholder="••••••••" required minlength="6">
                 </div>
                 <div class="input-group">
-                    <label>রেফারেল কোড (ঐচ্ছিক)</label>
+                    <label>রেফারেল কোড (ঐচ্ছিক - ১০৳ বোনাস পাবেন)</label>
                     <input type="text" id="regReferral" placeholder="বন্ধুর রেফারেল কোড">
                 </div>
                 <button type="submit" class="btn btn-primary">রেজিস্টার করুন</button>
@@ -203,24 +215,42 @@
 
             <!-- SPIN TAB -->
             <div id="spinTab" class="hidden">
+                <!-- Premium Wheel (5 mins cooldown) -->
                 <div class="card" style="text-align:center;">
-                    <h4 style="justify-content:center;">🎡 স্পিন করে টাকা জিতুন</h4>
-                    <p>প্রতিদিন ১ বার স্পিন করার সুযোগ।</p>
+                    <h4 style="justify-content:center;">💎 প্রিমিয়াম স্পিন (৫ মিনিট পর পর)</h4>
+                    <p>এড দেখে স্পিন করুন। ৯ টাকা পর্যন্ত জেতার সুযোগ!</p>
                     
                     <div class="wheel-container">
                         <div class="pointer"></div>
-                        <div class="wheel" id="wheel">
-                            <div class="wheel-text" style="transform: rotate(30deg) translateY(-100px)">৳1</div>
-                            <div class="wheel-text" style="transform: rotate(90deg) translateY(-100px)">৳2</div>
-                            <div class="wheel-text" style="transform: rotate(150deg) translateY(-100px)">৳5</div>
-                            <div class="wheel-text" style="transform: rotate(210deg) translateY(-100px)">৳7</div>
-                            <div class="wheel-text" style="transform: rotate(270deg) translateY(-100px)">৳9</div>
-                            <div class="wheel-text" style="transform: rotate(330deg) translateY(-100px)">৳10</div>
+                        <div class="wheel wheel-premium" id="premiumWheel">
+                            <div class="wheel-text premium-text-1">৳1</div>
+                            <div class="wheel-text premium-text-2">৳2</div>
+                            <div class="wheel-text premium-text-5">৳5</div>
+                            <div class="wheel-text premium-text-9">৳9</div>
                         </div>
-                        <button id="spinBtn" class="spin-btn-center" onclick="spinWheel()">SPIN</button>
+                        <button id="premiumSpinBtn" class="spin-btn-center" onclick="premiumSpin()">SPIN</button>
                     </div>
+                    <p id="premiumSpinResult" style="font-weight:700; color:#0b4db5; margin-top:15px; font-size:15px; min-height:22px;"></p>
+                </div>
+
+                <!-- Unlimited Wheel -->
+                <div class="card" style="text-align:center;">
+                    <h4 style="justify-content:center;">🎡 আনলিমিটেড স্পিন</h4>
+                    <p>যত ইচ্ছা এড দেখুন এবং স্পিন করুন!</p>
                     
-                    <p id="spinResult" style="font-weight:700; color:#0b4db5; margin-top:20px; font-size:16px; min-height:24px;"></p>
+                    <div class="wheel-container">
+                        <div class="pointer"></div>
+                        <div class="wheel wheel-unlimited" id="unlimitedWheel">
+                            <div class="wheel-text" style="transform: rotate(30deg) translateY(-80px)">৳0.5</div>
+                            <div class="wheel-text" style="transform: rotate(90deg) translateY(-80px)">৳0.6</div>
+                            <div class="wheel-text" style="transform: rotate(150deg) translateY(-80px)">৳0.7</div>
+                            <div class="wheel-text" style="transform: rotate(210deg) translateY(-80px)">৳0.8</div>
+                            <div class="wheel-text" style="transform: rotate(270deg) translateY(-80px)">৳0.9</div>
+                            <div class="wheel-text" style="transform: rotate(330deg) translateY(-80px)">৳1</div>
+                        </div>
+                        <button id="unlimitedSpinBtn" class="spin-btn-center" onclick="unlimitedSpin()">SPIN</button>
+                    </div>
+                    <p id="unlimitedSpinResult" style="font-weight:700; color:#0b4db5; margin-top:15px; font-size:15px; min-height:22px;"></p>
                 </div>
             </div>
 
@@ -234,7 +264,7 @@
                     </div>
 
                     <h4 style="margin-top:20px;">👥 রেফারেল প্রোগ্রাম</h4>
-                    <p>বন্ধুদের সাথে শেয়ার করে আয় করুন।</p>
+                    <p>বন্ধুকে রেফার করলে <b>১০ টাকা</b> বোনাস এবং সে-ও <b>১০ টাকা</b> পাবে!</p>
                     <div class="referral-box">
                         <input type="text" id="myReferralCode" readonly>
                         <button class="btn btn-primary" onclick="copyReferral()">কপি</button>
@@ -252,7 +282,7 @@
             </div>
 
             <!-- WITHDRAW TAB -->
-            <div id="withdrawTab" class="hidden">
+             <div id="withdrawTab" class="hidden">
                 <div class="card">
                     <h4>💰 টাকা উত্তোলন (Withdraw)</h4>
                     <p>সর্বনিম্ন ৫০০ টাকা উত্তোলন করা যাবে। (বিকাশ / নগদ)</p>
@@ -291,7 +321,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, serverTimestamp, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     // আপনার Firebase Config
     const firebaseConfig = {
@@ -335,7 +365,7 @@
         const name = document.getElementById('regName').value;
         const email = document.getElementById('regEmail').value;
         const pass = document.getElementById('regPassword').value;
-        const refCode = document.getElementById('regReferral').value.trim();
+        const refCode = document.getElementById('regReferral').value.trim().toUpperCase();
         
         document.getElementById('loader').classList.remove('hidden');
         try {
@@ -379,20 +409,45 @@
         signOut(auth);
     };
 
-    // ================= FIRESTORE LOGIC =================
+    // ================= FIRESTORE LOGIC (REFERRAL SYSTEM) =================
     async function createUserDocument(user, name, refCode) {
         const userRef = doc(db, "users", user.uid);
         const snap = await getDoc(userRef);
+        
         if (!snap.exists()) {
+            let initialBalance = 0;
+            let referredBy = null;
+
+            // চেক করা হচ্ছে ইউজার কোনো রেফারেল কোড দিয়েছে কিনা
+            if (refCode) {
+                const usersRef = collection(db, "users");
+                const q = query(usersRef, where("referralCode", "==", refCode));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    // রেফারকারী পাওয়া গেছে
+                    const referrerDoc = querySnapshot.docs[0];
+                    const referrerId = referrerDoc.id;
+                    referredBy = refCode;
+                    initialBalance = 10; // নতুন ইউজার ১০ টাকা পাবে
+
+                    // রেফারকারীকে ১০ টাকা দেওয়া হচ্ছে
+                    await updateDoc(doc(db, "users", referrerId), {
+                        balance: increment(10)
+                    });
+                }
+            }
+
+            // নতুন ইউজারের ডকুমেন্ট তৈরি
             await setDoc(userRef, {
                 name: name,
                 email: user.email,
-                balance: 0.00,
+                balance: initialBalance, // রেফারেল থাকলে ১০ টাকা
                 adsWatched: 0,
                 referralCode: user.uid.substring(0, 8).toUpperCase(),
-                referredBy: refCode || null,
+                referredBy: referredBy,
                 lastCheckIn: null,
-                lastSpin: null,
+                lastPremiumSpin: null,
                 createdAt: serverTimestamp()
             });
         }
@@ -427,7 +482,7 @@
             document.getElementById('adsDisplay').innerText = userData.adsWatched;
             document.getElementById('myReferralCode').value = userData.referralCode;
             checkDailyBonus();
-            checkSpinAvailability();
+            checkPremiumSpinCooldown();
         }
     }
 
@@ -435,10 +490,7 @@
     window.watchAd = (element) => {
         if (!currentUser) return;
         
-        // Monetag লিংক ওপেন করা
         window.open(MONETAG_LINK, '_blank');
-        
-        // পেজকে অটোমেটিক্যালি উপরে স্ক্রল করা (হোম পেজ ফিল)
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         element.classList.add('disabled');
@@ -459,7 +511,6 @@
                 element.classList.remove('disabled');
                 element.querySelector('.text').innerText = originalText;
                 
-                // সাকসেস অ্যানিমেশন এবং অ্যালার্ট
                 const balanceBox = document.querySelector('.balance-box');
                 balanceBox.style.transform = 'scale(1.1)';
                 balanceBox.style.transition = '0.3s';
@@ -495,55 +546,134 @@
         alert("অভিনন্দন! ৳২ ডেইলি বোনাস পেয়েছেন।");
     };
 
-    // ================= SPIN WHEEL LOGIC =================
-    function checkSpinAvailability() {
-        const btn = document.getElementById('spinBtn');
-        const today = new Date().toDateString();
+    // ================= PREMIUM SPIN LOGIC (5 MIN COOLDOWN) =================
+    let premiumTimerInterval;
+
+    function checkPremiumSpinCooldown() {
+        const btn = document.getElementById('premiumSpinBtn');
+        const resultText = document.getElementById('premiumSpinResult');
+        const now = Date.now();
         
-        if (userData.lastSpin === today) {
+        if (userData.lastPremiumSpin && (now - userData.lastPremiumSpin < 300000)) { // 3,00,000 ms = 5 mins
+            const timeLeft = 300000 - (now - userData.lastPremiumSpin);
+            const mins = Math.floor(timeLeft / 60000);
+            const secs = Math.floor((timeLeft % 60000) / 1000);
+            
             btn.disabled = true;
-            btn.innerText = "কাল\nআসুন";
-            document.getElementById('spinResult').innerText = "আজকের স্পিন শেষ! আগামীকাল আবার আসুন।";
+            btn.innerText = `${mins}:${secs < 10 ? '0'+secs : secs}`;
+            resultText.innerText = "পরবর্তী স্পিনের জন্য অপেক্ষা করুন...";
+            
+            clearInterval(premiumTimerInterval);
+            premiumTimerInterval = setInterval(() => {
+                const tLeft = userData.lastPremiumSpin + 300000 - Date.now();
+                if (tLeft <= 0) {
+                    clearInterval(premiumTimerInterval);
+                    checkPremiumSpinCooldown();
+                } else {
+                    const m = Math.floor(tLeft / 60000);
+                    const s = Math.floor((tLeft % 60000) / 1000);
+                    btn.innerText = `${m}:${s < 10 ? '0'+s : s}`;
+                }
+            }, 1000);
         } else {
             btn.disabled = false;
             btn.innerText = "SPIN";
-            document.getElementById('spinResult').innerText = "";
+            resultText.innerText = "";
+            clearInterval(premiumTimerInterval);
         }
     }
 
-    window.spinWheel = async () => {
-        if (isSpinning || !currentUser) return;
-        const today = new Date().toDateString();
+    window.premiumSpin = () => {
+        if (!currentUser || isSpinning) return;
         
-        if (userData.lastSpin === today) {
-            alert("আপনি আজ ইতিমধ্যে স্পিন করেছেন!");
-            return;
-        }
-
-        isSpinning = true;
-        const btn = document.getElementById('spinBtn');
+        window.open(MONETAG_LINK, '_blank');
+        const btn = document.getElementById('premiumSpinBtn');
         btn.disabled = true;
-
-        // ১, ২, ৫, ৭, ৯, ১০ (এই ক্রমানুসারে)
-        const prizes = [1, 2, 5, 7, 9, 10]; 
-        const randomIndex = Math.floor(Math.random() * prizes.length);
-        const winAmount = prizes[randomIndex];
-        const rotation = (360 * 5) + (360 - (randomIndex * 60) - 30);
+        btn.innerText = "লোড...";
         
-        const wheel = document.getElementById('wheel');
-        wheel.style.transform = `rotate(${rotation}deg)`;
-
         setTimeout(async () => {
-            isSpinning = false;
-            document.getElementById('spinResult').innerText = `অভিনন্দন! আপনি ৳${winAmount} জিতেছেন!`;
+            isSpinning = true;
             
-            await updateDoc(doc(db, "users", currentUser.uid), {
-                balance: increment(winAmount),
-                lastSpin: today
-            });
+            // Weighted Random: 1(45%), 2(30%), 5(20%), 9(5%)
+            let rand = Math.random() * 100;
+            let winAmount = 1;
+            let index = 0; // 1 Tk
+
+            if (rand > 95) { winAmount = 9; index = 3; }
+            else if (rand > 75) { winAmount = 5; index = 2; }
+            else if (rand > 45) { winAmount = 2; index = 1; }
+            else { winAmount = 1; index = 0; }
             
-            await loadUserData(currentUser.uid);
-        }, 4200);
+            // Rotation calculation (4 slices, 90 degrees each)
+            const baseRotation = (360 * 5);
+            const targetRotation = 360 - (index * 90) - 45;
+            const finalRotation = baseRotation + targetRotation;
+            
+            const wheel = document.getElementById('premiumWheel');
+            // Previous rotation reset logic
+            wheel.style.transition = 'none';
+            wheel.style.transform = `rotate(0deg)`;
+            setTimeout(() => {
+                wheel.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                wheel.style.transform = `rotate(${finalRotation}deg)`;
+            }, 50);
+
+            setTimeout(async () => {
+                isSpinning = false;
+                document.getElementById('premiumSpinResult').innerText = `অভিনন্দন! আপনি ৳${winAmount} জিতেছেন!`;
+                
+                const now = Date.now();
+                await updateDoc(doc(db, "users", currentUser.uid), {
+                    balance: increment(winAmount),
+                    lastPremiumSpin: now
+                });
+                
+                await loadUserData(currentUser.uid);
+            }, 4200);
+        }, 15000); // 15 seconds wait for ad
+    };
+
+    // ================= UNLIMITED SPIN LOGIC =================
+    window.unlimitedSpin = () => {
+        if (!currentUser || isSpinning) return;
+        
+        window.open(MONETAG_LINK, '_blank');
+        const btn = document.getElementById('unlimitedSpinBtn');
+        btn.disabled = true;
+        btn.innerText = "লোড...";
+        
+        setTimeout(async () => {
+            isSpinning = true;
+            
+            const prizes = [0.50, 0.60, 0.70, 0.80, 0.90, 1.00]; 
+            const randomIndex = Math.floor(Math.random() * prizes.length);
+            const winAmount = prizes[randomIndex];
+            
+            const baseRotation = (360 * 5);
+            const targetRotation = 360 - (randomIndex * 60) - 30;
+            const finalRotation = baseRotation + targetRotation;
+            
+            const wheel = document.getElementById('unlimitedWheel');
+            wheel.style.transition = 'none';
+            wheel.style.transform = `rotate(0deg)`;
+            setTimeout(() => {
+                wheel.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                wheel.style.transform = `rotate(${finalRotation}deg)`;
+            }, 50);
+
+            setTimeout(async () => {
+                isSpinning = false;
+                document.getElementById('unlimitedSpinResult').innerText = `অভিনন্দন! আপনি ৳${winAmount.toFixed(2)} জিতেছেন!`;
+                
+                await updateDoc(doc(db, "users", currentUser.uid), {
+                    balance: increment(winAmount)
+                });
+                
+                await loadUserData(currentUser.uid);
+                btn.disabled = false;
+                btn.innerText = "SPIN";
+            }, 4200);
+        }, 15000);
     };
 
     // ================= WITHDRAW =================
@@ -576,7 +706,10 @@
         document.getElementById('withdrawTab').classList.add('hidden');
 
         if (tab === 'earn') document.getElementById('earnTab').classList.remove('hidden');
-        if (tab === 'spin') document.getElementById('spinTab').classList.remove('hidden');
+        if (tab === 'spin') {
+            document.getElementById('spinTab').classList.remove('hidden');
+            checkPremiumSpinCooldown(); // চেক করা হচ্ছে কুলডাউন শেষ হয়েছে কিনা
+        }
         if (tab === 'profile') document.getElementById('profileTab').classList.remove('hidden');
         if (tab === 'withdraw') document.getElementById('withdrawTab').classList.remove('hidden');
     };
@@ -591,7 +724,7 @@
     window.shareSocial = (platform) => {
         const refCode = document.getElementById('myReferralCode').value;
         const appUrl = window.location.href;
-        const text = `আমার রেফারেল কোড (${refCode}) ব্যবহার করে Earn money Bangladesh অ্যাপে জয়েন করুন এবং অ্যাড দেখে প্রতিদিন টাকা আয় করুন! লিংক: ${appUrl}`;
+        const text = `আমার রেফারেল কোড (${refCode}) ব্যবহার করে Earn money Bangladesh অ্যাপে জয়েন করুন। সাথে সাথে ১০৳ বোনাস নিন এবং অ্যাড দেখে প্রতিদিন টাকা আয় করুন! লিংক: ${appUrl}`;
         
         let url = '';
         if (platform === 'facebook') {
